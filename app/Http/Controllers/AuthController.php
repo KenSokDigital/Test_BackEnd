@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Auth;
-use Illuminate\Support\Illuminate\Support\Facades\Hash;
-
+//use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
-{
-    //
+{//
     public function showFrmRgs()
     {
         return view('Authentication.register');
@@ -21,10 +19,10 @@ class AuthController extends Controller
             'user_Password'=> 'required|same:password|min:8',
             'confirm_password' => 'required|same:password',
         ]);
-        $users=Auth::create([
-            'user_Name'     => $req->username,
-            'user_Email'    => $req->email,
-            'user_Password' => bcrypt($req->password),
+        Auth::create([
+            'user_Name'=> $req->username,
+            'user_Email'=> $req->email,
+            'password' => bcrypt($req->user_Password),
         ]);
         return redirect()
             ->route('login.submit')
